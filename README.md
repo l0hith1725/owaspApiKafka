@@ -284,7 +284,7 @@ Grafana dashboards (after first events): http://localhost:3001
 
 ---
 
-## Technical Interview Discussion Points
+## Questions?
 
 **"Walk me through a credential stuffing attack."**
 > When an attacker tries 25 login failures from one IP, each request is proxied by the gateway and a SecurityEvent published to Kafka. The credential stuffing analyzer consumes these, increments a Redis sorted-set sliding window for that IP, and after the threshold (e.g., 20 failures in 60 seconds) writes `threat:sample-app:ip:x.x.x.x` to Redis with a 300-second TTL. The 21st request hits the gateway, which pipeline-reads Redis, finds the CRITICAL threat signal, and returns 403 before ever touching the upstream.
