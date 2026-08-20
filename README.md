@@ -284,13 +284,4 @@ Grafana dashboards (after first events): http://localhost:3001
 
 ---
 
-## Technical Interview Discussion Points
 
-**"Walk me through a credential stuffing attack."**
-> When an attacker tries 25 login failures from one IP, each request is proxied by the gateway and a SecurityEvent published to Kafka. The credential stuffing analyzer consumes these, increments a Redis sorted-set sliding window for that IP, and after the threshold (e.g., 20 failures in 60 seconds) writes `threat:sample-app:ip:x.x.x.x` to Redis with a 300-second TTL. The 21st request hits the gateway, which pipeline-reads Redis, finds the CRITICAL threat signal, and returns 403 before ever touching the upstream.
-
-**"Why Kafka instead of calling the analyzer synchronously?"**
-> Behavioral analysis requires state across many requests; doing it synchronously on every request would add 50-200ms latency. Kafka decouples the gateway (latency-critical path) from the analyzer (throughput-critical). The gateway stays at <2ms overhead.
-
-**"How does the system scale?"**
-> Gateway is stateless — add instances behind a load balancer. Analyzers scale by adding consumer instances to the same Kafka consumer group; Kafka rebalances partitions automatically. Because partition key includes userId, a user's events stay on one partition, giving one consumer instance all the state it needs for that user — no distributed locking required.
