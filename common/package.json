@@ -1,0 +1,10 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "ioredis": "^5.3.2",
+    "kafkajs": "^2.2.4",
+    "uuid": "^9.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "sample-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.4.5"
+  }
+}

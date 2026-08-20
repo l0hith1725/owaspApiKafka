@@ -1,0 +1,31 @@
+{
+  "name": "api-threat-platform",
+  "version": "1.0.0",
+  "description": "Extensible API threat detection and enforcement platform",
+  "private": true,
+  "workspaces": [
+    "common",
+    "gateway",
+    "analyzers",
+    "sample-app"
+  ],
+  "scripts": {
+    "dev": "docker-compose up --build",
+    "test": "jest --runInBand",
+    "test:unit": "jest tests/unit --runInBand",
+    "test:integration": "jest tests/integration --runInBand",
+    "simulate:cs": "node tests/simulation/credential-stuffing.js",
+    "simulate:bola": "node tests/simulation/bola-attack.js",
+    "simulate:flow": "node tests/simulation/business-flow-abuse.js",
+    "kafka:setup": "node infrastructure/kafka/setup-topics.js"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4",
+    "ioredis": "^5.3.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  }
+}

@@ -1,0 +1,6 @@
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install kafkajs
+COPY infrastructure/kafka/setup-topics.js ./
+CMD ["node", "setup-topics.js"]
